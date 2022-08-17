@@ -1,0 +1,39 @@
+name: Create PDF slides
+
+# Only trigger, when the build workflow succeeded
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types:
+      - completed
+  workflow_dispatch:
+jobs:
+  deploy-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Get GH pages URL
+        run: ruby .github/scripts/github_pages.ru | xargs -I{} echo '::set-output name=URL::{}'
+        id: gh-pages-url
+      - uses: browser-actions/setup-chrome@latest
+      #- name: Install chromium
+      #  run: sudo apt install -y chromium-browser
+      - name: Produce PDF
+        run: google-chrome-stable --headless --run-all-compositor-stages-before-draw --disable-gpu --virtual-time-budget=10000 --print-to-pdf=slides.pdf ${{steps.gh-pages-url.outputs.URL}}\?print-pdf\&pdfSeparateFragments\=false\#/
+        
+      #- name: Produce slides
+      #  run: npx decktape automatic ${{steps.gh-pages-url.outputs.URL}}/ slides.pdf -s 1024x768 --chrome-arg=--enable-gpu --chrome-arg=--use-gl=angle
+      - name: Tag From date
+        run: echo $(date +'%Y_%m_%d-%H_%M') | xargs -I{}  echo '::set-output name=TAG::{}'  
+        id: tag-from-date
+      - uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "*.pdf"
+          draft: false
+          tag_name: ${{ steps.tag-from-date.outputs.TAG}}

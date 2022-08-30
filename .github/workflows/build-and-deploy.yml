@@ -51,15 +51,13 @@ jobs:
         run: hugo version
       - name: Remove Hugo Installer
         run: rm hugo.deb
-      - name: Install npm dependencies
-        run: npm install
       - name: Get GH pages URL
         run: ruby .github/scripts/github_pages.ru | xargs -I{} echo '::set-output name=URL::{}'
         id: gh-pages-url
       - name: Build slides with hugo
         run: hugo -b ${{ steps.gh-pages-url.outputs.URL }}
-      - name: Inline mermaid graphs
-        run: node postprocessing.js
+      - name: Transform and Inline Mermaid
+        uses: cric96/inline-mermaid@v1.2.0
       - name: Deploy website
         if: ${{ github.event_name != 'pull_request' }}
         uses: JamesIves/github-pages-deploy-action@v4.4.0

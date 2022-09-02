@@ -16,6 +16,10 @@ name = "Gianluca Aguzzi"
 [markup.goldmark.renderer]
 unsafe = true
 
+[markup.goldmark.parser.attribute]
+block = true
+
+
 # choose between Hugo compile-time or Highlight.js
 # syntax highlighting for code inside of code fences
 [markup.highlight]

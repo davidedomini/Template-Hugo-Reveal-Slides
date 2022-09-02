@@ -7,6 +7,8 @@ on:
     types:
       - completed
   workflow_dispatch:
+env:
+  REPOSITORY_NAME: ${{ github.event.repository.name }}
 jobs:
   deploy-pdf:
     runs-on: ubuntu-latest
@@ -17,16 +19,11 @@ jobs:
         with:
           node-version: 16
       - name: Get GH pages URL
-        run: ruby .github/scripts/github_pages.ru | xargs -I{} echo '::set-output name=URL::{}'
+        run: echo https://$GITHUB_REPOSITORY_OWNER.github.io/$REPOSITORY_NAME | xargs -I{} echo '::set-output name=URL::{}'
         id: gh-pages-url
       - uses: browser-actions/setup-chrome@latest
-      #- name: Install chromium
-      #  run: sudo apt install -y chromium-browser
       - name: Produce PDF
-        run: google-chrome-stable --headless --run-all-compositor-stages-before-draw --disable-gpu --virtual-time-budget=10000 --print-to-pdf=slides.pdf ${{steps.gh-pages-url.outputs.URL}}\?print-pdf\&pdfSeparateFragments\=false\#/
-        
-      #- name: Produce slides
-      #  run: npx decktape automatic ${{steps.gh-pages-url.outputs.URL}}/ slides.pdf -s 1024x768 --chrome-arg=--enable-gpu --chrome-arg=--use-gl=angle
+        run: google-chrome-stable --headless --run-all-compositor-stages-before-draw --disable-gpu --virtual-time-budget=10000 --print-to-pdf=slides.pdf ${{steps.gh-pages-url.outputs.URL}}\?print-pdf\&pdfSeparateFragments\=false\#/  
       - name: Tag From date
         run: echo $(date +'%Y_%m_%d-%H_%M') | xargs -I{}  echo '::set-output name=TAG::{}'  
         id: tag-from-date

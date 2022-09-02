@@ -14,6 +14,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  REPOSITORY_NAME: ${{ github.event.repository.name }}
+  
 jobs:
   Build-Slides:
     runs-on: ubuntu-latest
@@ -52,7 +55,7 @@ jobs:
       - name: Remove Hugo Installer
         run: rm hugo.deb
       - name: Get GH pages URL
-        run: echo https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY | xargs -I{} echo '::set-output name=URL::{}'
+        run: echo https://$GITHUB_REPOSITORY_OWNER.github.io/$REPOSITORY_NAME | xargs -I{} echo '::set-output name=URL::{}'
         id: gh-pages-url
       - name: Build slides with hugo
         run: hugo -b ${{ steps.gh-pages-url.outputs.URL }}

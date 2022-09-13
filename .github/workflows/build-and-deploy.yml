@@ -60,7 +60,7 @@ jobs:
       - name: Build slides with hugo
         run: hugo -b ${{ steps.gh-pages-url.outputs.URL }}
       - name: Transform and Inline Mermaid
-        uses: cric96/inline-mermaid@v1.4.4
+        uses: cric96/inline-mermaid@v1.5.0
       - name: Deploy website
         if: ${{ github.event_name != 'pull_request' }}
         uses: JamesIves/github-pages-deploy-action@v4.4.0

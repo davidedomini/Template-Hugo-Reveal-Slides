@@ -1,4 +1,4 @@
 [submodule "themes/reveal-hugo"]
 	path = themes/reveal-hugo
-	url = git@github.com:cric96/reveal-hugo.git
+	url = git@github.com:davidedomini/reveal-hugo.git
 	branch = master

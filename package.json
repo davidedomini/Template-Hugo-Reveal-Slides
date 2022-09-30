@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cric96/Template-Hugo-Reveal-Slides.git"
+    "url": "git+https://github.com/davidedomini/Template-Hugo-Reveal-Slides.git"
   },
   "author": "cric96",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cric96/Template-Hugo-Reveal-Slides/issues"
+    "url": "https://github.com/davidedomini/Template-Hugo-Reveal-Slides/issues"
   },
-  "homepage": "https://github.com/cric96/Template-Hugo-Reveal-Slides#readme"
+  "homepage": "https://github.com/davidedomini/Template-Hugo-Reveal-Slides#readme"
 }

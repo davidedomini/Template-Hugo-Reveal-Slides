@@ -10,7 +10,7 @@ canonifyURLs = true
 # uglyURLs = true
 
 [author]
-name = "Gianluca Aguzzi"
+name = "Davide Domini"
 
 # currently only the unsafe mode for goldmark is supported
 [markup.goldmark.renderer]

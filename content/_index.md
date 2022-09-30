@@ -15,9 +15,9 @@ aliases = [
 ## Subtitles are important
 **Talk @ Somewhere**
 
-🎤 *Gianluca Aguzzi*
+🎤 *Davide Domini*
 
-📧 [gianluca.aguzzi@unibo.it](mailto:gianluca.aguzzi@unibo.it)
+📧 [davide.domini2@unibo.it](mailto:davide.domini2@unibo.it)
 
 {{% note %}}
 Don't forget to thank the audience.
